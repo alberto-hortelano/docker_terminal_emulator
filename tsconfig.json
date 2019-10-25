@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist/",
+		"baseUrl": "./src",
+		"sourceMap": true,
+		"module": "commonjs",
+		"target": "ES2019",
+		"jsx": "react",
+		"allowSyntheticDefaultImports": true
+	},
+	"include": [
+		"src/**/*"
+	]
+}

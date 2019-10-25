@@ -1,0 +1,7 @@
+.term {
+	float: left;
+	padding: 1px;
+	width: 33%;
+	box-sizing: border-box;
+	background: red;
+}

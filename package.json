@@ -1,0 +1,42 @@
+{
+	"name": "docker_terminal_emulator",
+	"version": "1.0.0",
+	"description": "A web service with react to have terminals inside docker containers from the browser",
+	"main": "index.js",
+	"scripts": {
+		"start": "node dist/index.js",
+		"build:ts": "tsc -w",
+		"build:wp": "webpack --config webpack.config.js",
+		"nodemon": "nodemon --inspect=0.0.0.0:9229 dist/index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/cors": "^2.8.6",
+		"@types/express": "^4.17.0",
+		"@types/helmet": "0.0.44",
+		"@types/node": "^12.6.8",
+		"@types/react": "^16.8.24",
+		"@types/react-dom": "^16.8.5",
+		"@types/ws": "^6.0.3",
+		"nodemon": "^1.19.1",
+		"ts-loader": "^6.0.4",
+		"typescript": "^3.4.5",
+		"webpack": "^4.39.0",
+		"webpack-cli": "^3.3.6"
+	},
+	"engines": {
+		"node": "6.2.0"
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"helmet": "^3.21.0",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"ws": "^7.1.2",
+		"xterm": "^4.0.1",
+		"xterm-addon-fit": "^0.2.1"
+	}
+}
