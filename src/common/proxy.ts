@@ -13,7 +13,7 @@ const proxy = http.createServer((req, res) => {
 		headers: req.headers,
 	};
 
-	console.log(`${options.method} http://${options.host}${options.path}`);
+	// console.log(`${options.method} http://${options.host}${options.path}`);
 
 	const backend_req = http.request(options, (backend_res) => {
 

@@ -1,39 +1,30 @@
-// import { projects } from "./api/projects";
-// import { PathLike } from "fs";
+import { Router } from 'express';
+import { getPtys, getPty } from './wss';
+import { killChildProcesses } from './exit';
+import { Logger } from "../common/Logger";
+import { paths } from "../common/paths";
 
-// export const router = {
-// 	'ws': 
-// }
+const console = new Logger(__filename, true);
 
-// type Msg = {
-// 	path: PathLike,
-// 	args?: []
-// }
-// const endPoints = [projects];
-// const api = endPoints.reduce((api, endPoint) => {
-// 	api[endPoint.path] = endPoint.actions
-// }, {});
+export const router = Router();
 
-// export const route = async (data: string, send: (response: any) => void) => {
-// 	try {
-// 		const msg: Msg = JSON.parse(data);
-// 		const { path, args } = msg;
-// 		if (api[path]) {
+router.get(paths.ptys, (req, res) => {
+	const ptys = Object.keys(getPtys());
+	console.warn("log: ptys", ptys);
+	res.send(ptys);
+});
 
-// 		} else {
-
-// 		}
-// 		switch (path) {
-// 			case 'projects':
-// 				const response = await projects(args);
-// 				if (response !== void 0) {
-// 					send(response);
-// 				}
-// 			default:
-// 				break;
-// 		}
-// 	} catch (error) {
-// 		console.log("log: route -> error", error);
-// 		return;
-// 	}
-// }
+router.delete(`${paths.ptys}/:id`, async (req, res) => {
+	console.log("log: ptys:id");
+	const id = parseInt(req.params.id);
+	try {
+		const killResponse = await killChildProcesses(id);
+		const pty = getPty(id);
+		pty.kill();
+		console.log("log:  killResponse", killResponse);
+		res.status(200).send(killResponse);
+	} catch (error) {
+		console.error("log: error", error);
+		res.status(500).send(error);
+	}
+});

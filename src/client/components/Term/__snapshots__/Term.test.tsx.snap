@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Term renders correctly 1`] = `
+<div
+  className="term"
+>
+  <b>
+    name_name
+  </b>
+  <div>
+    <input
+      onKeyUp={[Function]}
+      type="text"
+    />
+    <button
+      onClick={[Function]}
+    >
+      clear
+    </button>
+  </div>
+</div>
+`;

@@ -1,7 +1,60 @@
+#Connection {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+#Connection .buttons {
+	flex-basis: 100%;
+	margin-bottom: 30px;
+}
+
 .term {
-	float: left;
 	padding: 1px;
-	width: 33%;
 	box-sizing: border-box;
 	background: red;
+	color: black;
+	margin-bottom: 30px;
+}
+
+.term.fake {
+	width: 595px;
+	background-color: transparent;
+	visibility: hidden;
+}
+
+.term-buttons {
+	padding-left: 6px;
+}
+
+.term-buttons button {
+	float: right;
+	background: transparent;
+	border: none;
+}
+
+.term.connected {
+	background: gray;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
 }

@@ -4,12 +4,67 @@
 <head>
 	<link rel="stylesheet" href="./xterm.css" />
 	<link rel="stylesheet" href="./style.css" />
-	<script src="./xterm.js"></script>
 </head>
 
 <body>
 	<div id="app"></div>
 	<script src="./xtermClient.js"></script>
+	<div id="boceto">
+		<div>Projects:</div>
+		<ul>
+			<li>
+				<b>Project 1</b>
+				<p>This is the description</p>
+				Commands:
+				<ul>
+					<li>npm run</li>
+					<li>npm test</li>
+				</ul>
+				<button style="background: black;">Create new Command</button><br>
+				Scripts:
+				<ul>
+					<li>
+						<div>
+							<b>Start in dev mode</b>
+							<p>This is the description</p>
+							<ul>
+								<li>npm run</li>
+								<li>npm test</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<button style="background: black;">Create new Script</button><br>
+			</li>
+			<li>Project 2</li>
+			<li>Project 3</li>
+		</ul>
+		<button style="background: black;">Create new project</button>
+		<div>
+			<b>New Project Creator:</b><br>
+			<label>Name
+				<input type="text">
+			</label><br>
+			<label>Path
+				<input type="text">
+			</label><br>
+			<label>Description
+				<textarea cols="30" rows="3"></textarea>
+			</label><br>
+		</div>
+		<div>
+			<b>New Command Creator:</b><br>
+			<label>Command:
+				<input type="text">
+			</label><br>
+		</div>
+		<div>
+			<b>New Script Creator:</b><br>
+			<label>Script:
+				<textarea cols="30" rows="3"></textarea>
+			</label><br>
+		</div>
+	</div>
 </body>
 
 </html>
