@@ -3,6 +3,7 @@ import { getPtys, getPty } from './wss';
 import { killChildProcesses } from './exit';
 import { Logger } from "../common/Logger";
 import { paths } from "../common/paths";
+import { createProject, getProject } from './API/Project';
 
 const console = new Logger(__filename, true);
 
@@ -27,4 +28,12 @@ router.delete(`${paths.ptys}/:id`, async (req, res) => {
 		console.error("log: error", error);
 		res.status(500).send(error);
 	}
+});
+router.post(`${paths.projects}`, async (req, res) => {
+	createProject();
+	res.send();
+});
+router.get(`${paths.projects}`, async (req, res) => {
+	getProject();
+	res.send();
 });

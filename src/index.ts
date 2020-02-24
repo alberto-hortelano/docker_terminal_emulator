@@ -2,8 +2,7 @@ import { createServer } from "http";
 import { app } from "./server/app";
 import { initWebSocket } from "./server/wss";
 import { paths } from "./common/paths";
-import { Project } from "./common/entities/Project";
-import { getDB } from "./server/dataBase";
+// import { getDB } from "./server/dataBase";
 import { Logger } from "./common/Logger";
 import './server/exit';
 
@@ -20,12 +19,9 @@ server.listen(PORT, () => {
 
 initWebSocket(server, paths.ws);
 
-const p = new Project('namee', 'pathh', 'descriptionn333');
-console.log("log: p", p);
-
 const dbConnect = async () => {
-	const dbConnection = await getDB('mongodb://mongo:27017/terminal_emulator');
-	console.log("log: dbConnect -> dbConnection", dbConnection);
+	// const dbConnection = await getDB('mongodb://mongo:27017/terminal_emulator');
+	// console.log("log: dbConnect -> dbConnection", dbConnection);
 	// dbConnection.collection('projects').update()
 }
 dbConnect();

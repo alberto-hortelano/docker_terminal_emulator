@@ -37,6 +37,13 @@
 	background: gray;
 }
 
+button {
+	background-color: gray;
+	color: white;
+}
+
+/* Scrollbar */
+
 ::-webkit-scrollbar {
 	width: 10px;
 }
