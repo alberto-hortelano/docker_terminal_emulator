@@ -1,0 +1,27 @@
+
+.term {
+	padding: 1px;
+	box-sizing: border-box;
+	background: red;
+	color: black;
+	margin-bottom: 30px;
+	&.fake {
+		width: 595px;
+		background-color: transparent;
+		visibility: hidden;
+	}
+	&.connected {
+		background: gray;
+	}
+	.term-buttons {
+		padding-left: 6px;
+		button {
+			float: right;
+			background: transparent;
+			border: none;
+		}		
+	}
+	.xterm .xterm-selection div {
+		background-color: rgba(10, 30, 170, 0.3);
+	}	
+}

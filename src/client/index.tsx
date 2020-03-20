@@ -6,7 +6,7 @@ import { Connection } from './components/Connection/Connection';
 
 const console = new Logger(__filename);
 
-const App = () => <div>
+const App = () => <div id="docker-terminal-emulator">
 	<Projects />
 	<Connection />
 </div>

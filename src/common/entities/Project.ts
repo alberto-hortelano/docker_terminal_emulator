@@ -10,6 +10,8 @@ export interface SerializableProject { // Serializable properties.
 	commands?: string[],
 }
 
+export const projectKeys: (keyof SerializableProject)[] = ["name", "path", "description", "commands"];
+
 export class Project {
 	private [_name]: SerializableProject['name'];
 	private [_path]: SerializableProject['path'];
@@ -35,8 +37,14 @@ export class Project {
 	get description() {
 		return this[_description];
 	}
+	set description(description: SerializableProject['description']) {
+		this[_description] = description;
+	}
 	get commands() {
 		return this[_commands];
+	}
+	set commands(commands: SerializableProject['commands']) {
+		this[_commands] = commands;
 	}
 	get serializableProject() {
 		return {
@@ -47,16 +55,3 @@ export class Project {
 		};
 	}
 }
-
-const p: SerializableProject = {
-	name: 'name',
-	path: 'path',
-	commands: ['dd']
-}
-const p1 = new Project(p);
-console.log("log: p1 getName", p1.name);
-console.log("log: p1", p1, JSON.parse(JSON.stringify(p1.serializableProject)), p1.serializableProject, JSON.parse(JSON.stringify(p1)));
-console.log("log: p1 getPath", p1.path);
-p1.path = 'new path';
-console.log("log: p1 getPath", p1.path);
-

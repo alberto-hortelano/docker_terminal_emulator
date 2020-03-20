@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Logger } from '../../../common/Logger';
 import { paths } from '../../../common/paths';
-import { Xterm } from '../Term/Xterm';
+import { Term } from '../Term/Term';
 
 const console = new Logger(__filename, true);
 
@@ -43,7 +43,7 @@ export const Connection: React.FunctionComponent = () => {
 		});
 	}, []);
 
-	return <div id="Connection">
+	return <div className={Connection.displayName.toLowerCase()}>
 		<div className="buttons">
 			<button ref={ref}>New Terminal</button>
 		</div>
@@ -51,7 +51,7 @@ export const Connection: React.FunctionComponent = () => {
 			ptys.map((pty, i) => {
 				console.log('Xterm', i, pty)
 				console.log("log: Connection:React.FunctionComponent -> ptys 3", ptys);
-				return <Xterm key={pty.id} xId={pty.id} initialPid={pty.pid} remove={(xId: number) => {
+				return <Term key={pty.id} xId={pty.id} initialPid={pty.pid} remove={(xId: number) => {
 					console.log("log: Connection:React.FunctionComponent -> ptys", ptys);
 					setPtys(() => {
 						const newPtys = ptys.filter(pty => {
@@ -61,10 +61,11 @@ export const Connection: React.FunctionComponent = () => {
 						console.log("log: Connection:React.FunctionComponent -> newPtys", newPtys);
 						return newPtys;
 					})
-				}}></Xterm>
+				}}></Term>
 			})
 		}
 		<div className="term fake"></div>
 		<div className="term fake"></div>
 	</div>
 }
+Connection.displayName = 'Connection';

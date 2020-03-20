@@ -70,7 +70,7 @@ const close = async (pid: string, connection: WSConnection, remove: () => void) 
 	remove();
 }
 
-export const Xterm: React.FunctionComponent<Props> = ({ initialPid = '', remove, xId }) => {
+export const Term: React.FunctionComponent<Props> = ({ initialPid = '', remove, xId }) => {
 	const ref = React.createRef<HTMLDivElement>();
 	const [pid, setPid] = useState(initialPid);
 	const [connected, setConnected] = useState(false);
@@ -89,8 +89,9 @@ export const Xterm: React.FunctionComponent<Props> = ({ initialPid = '', remove,
 		console.log("log: initialPid", pid, initialPid);
 	}, [initialPid]);
 
-	return <div className={"term" + (connected ? " connected" : "")}>
+	return <div className={Term.displayName.toLowerCase() + (connected ? " connected" : "")}>
 		<div className="term-buttons">PID: {pid}<button onClick={() => close(pid, connection, () => remove(xId))}>X</button></div>
 		<div ref={ref}></div>
 	</div>
 }
+Term.displayName = 'Term';
