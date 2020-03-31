@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import { paths } from '../../common/paths';
 import { Logger } from '../../common/Logger';
 import { decodeData } from '../../common/lib';
+import { WSServices } from '../../common/constants';
 
 const console = new Logger(__filename, true);
 
@@ -13,15 +14,16 @@ export interface WSConnection {
 
 export class WSConnection extends EventEmitter implements Connection {
 	private ws: WebSocket;
-	private wsUrl: string;
+	private wsUrl = `ws://${location.host + paths.ws}`;
 	private connecting = false;
 
-	constructor(public name = '') {
+	constructor(public service: WSServices, public name = '') {
 		super();
 		console.warn("log: WSConnection  -> constructor ->  connectionName", this.name);
 		this.wsUrl = `ws://${location.host + paths.ws}`;
+		this.wsUrl += `?service=${this.service}`;
 		if (this.name) {
-			this.wsUrl += `?name=${this.name}`;
+			this.wsUrl += `&name=${this.name}`;
 		}
 		this.createConnection();
 	}

@@ -1,9 +1,10 @@
 import * as WS from "ws";
-import { Server as HttpServer } from "http";
 import { spawn, IPty } from "node-pty";
 import { parse } from "url";
 import { Logger } from "../common/Logger";
-import { encodeData, terminalConfig } from "../common/lib";
+import { encodeData } from "../common/lib";
+import { terminalConfig } from "../common/constants";
+import { addService } from "./wsServer";
 
 const console = new Logger(__filename, true);
 
@@ -55,14 +56,10 @@ export const getPtys = () => ptys;
 
 export const getPty = (id: number) => ptys[id];
 
-export const initWebSocket = (server: HttpServer, path: string) => {
-	const wss = new WS.Server({ server, path });
-	// console.log("log: initWebSocket -> wss", wss);
-	wss.on('connection', async (ws, req) => {
-		const name = parse(req.url, true)?.query?.name?.toString();
-		console.warn("log: initWebSocket -> name", name);
-		const pty = ptys[name] || initPty(ws);
-		linkConnectionToPty(ws, pty);
-		console.warn("log: initWebSocket ->", pty.pid);
-	});
-};
+addService('pty', (ws, req) => {
+	const name = parse(req.url, true)?.query?.name?.toString();
+	console.warn("log: initWebSocket -> name", name);
+	const pty = ptys[name] || initPty(ws);
+	linkConnectionToPty(ws, pty);
+	console.warn("log: initWebSocket ->", pty.pid);
+});

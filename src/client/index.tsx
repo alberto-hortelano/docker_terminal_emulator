@@ -1,16 +1,11 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Projects } from './components/Projects';
-import { paths } from '../common/paths';
 import { Logger } from '../common/Logger';
 import { Connection } from './components/Connection/Connection';
 
 const console = new Logger(__filename);
 
-const wsPath = `ws://${location.host + paths.ws}`;
-
-const App = () => <div>
-	<Projects />
+const App = () => <div id="docker-terminal-emulator">
 	<Connection />
 </div>
 const componentPath = new URLSearchParams(window.location.search).get('component');

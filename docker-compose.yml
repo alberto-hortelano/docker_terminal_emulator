@@ -1,0 +1,18 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "127.0.0.1:27717:27017"
+  mongo_client:
+    container_name: mongo_client
+    image: mongoclient/mongoclient
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URL="mongodb://mongo:27017"
+    ports:
+      - "127.0.0.1:27300:3000"

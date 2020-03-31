@@ -1,5 +1,7 @@
 .vscode/
 node_modules/
 dist/
+data/
 package-lock.json
 static/xtermClient.js
+src/client/**/*.css

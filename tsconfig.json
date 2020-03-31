@@ -1,8 +1,11 @@
 {
 	"compilerOptions": {
+		"experimentalDecorators": true,
 		"outDir": "./dist/",
 		"baseUrl": "./src",
 		"sourceMap": true,
+		"sourceRoot": "/home/alberto/DKR/services/docker_terminal_emulator/dist/",
+		"mapRoot": "/home/alberto/DKR/services/docker_terminal_emulator/dist/",
 		"module": "commonjs",
 		"target": "ES2018",
 		"jsx": "react",

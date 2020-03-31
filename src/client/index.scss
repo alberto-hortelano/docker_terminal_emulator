@@ -1,0 +1,52 @@
+/* Constants */
+$color: #4a67b9;
+
+/* Imports */
+#docker-terminal-emulator {
+	padding: 10px;
+	@import './components/Modal';
+	@import './components/Connection';
+	@import './components/Projects';
+	@import './components/Term';
+}
+
+/* General styles */
+body {
+	margin: 0px;
+	background-color: white;
+    font-family: sans-serif;
+	&.modal-open {
+		overflow: hidden;
+	}
+}
+
+button {
+    background-color: $color;
+    color: white;
+    border: none;
+    padding: 8px;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+	background: #888;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}

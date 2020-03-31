@@ -49,7 +49,7 @@ export function Logger(
 		if (lastCallerFile !== this.file) {
 			console.groupEnd();
 			lastCallerFile = this.file;
-			console.group('---', this.file);
+			console.group(`%c---${this.file}`, 'color: green');
 		}
 		console.log('**', ...args);
 	}

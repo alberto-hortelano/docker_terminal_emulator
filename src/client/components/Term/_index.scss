@@ -1,0 +1,49 @@
+
+.term {
+	padding: 1px;
+	box-sizing: border-box;
+	background: red;
+	color: white;
+	margin-bottom: 30px;
+	&.fake {
+		width: 595px;
+		background-color: transparent;
+		visibility: hidden;
+	}
+	&.connected {
+		background: $color;
+	}
+	.term-buttons {
+		padding-left: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		> * {
+			line-height: 24px;
+		}
+		.pid {
+			align-self: flex-start;
+			padding-right: 5px;
+			border-right: 1px solid white;
+			margin: 1px 5px;
+		}
+		.initial-command {
+			font-weight: bold;
+			margin: 1px 5px;
+		}	
+		button {
+			align-self: flex-end;
+			background: transparent;
+			border: 1px solid;
+			padding: 0;
+			width: 24px;
+			font-size: 18px;
+			margin: 1px;
+			box-sizing: content-box;
+			text-align: center;
+		}	
+	}
+	.xterm .xterm-selection div {
+		background-color: rgba(10, 30, 170, 0.3);
+	}	
+}
