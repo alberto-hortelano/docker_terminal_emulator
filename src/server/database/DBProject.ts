@@ -1,5 +1,6 @@
 import { SerializableProject, Project, projectKeys } from "../../common/entities/Project";
 import { model, Schema, Document, SchemaTypeOpts, SchemaType, Model } from "mongoose";
+import { commandSchemaBase } from "./DBCommand";
 
 export interface ProjectDoc extends SerializableProject, Document { };
 
@@ -25,7 +26,7 @@ const schemaBase: SerializableProjectKeys = {
 		lowercase: true,
 	},
 	description: String,
-	commands: [String],
+	commands: [commandSchemaBase],
 }
 
 const projectSchema = new Schema<ProjectDoc>(schemaBase);
@@ -78,36 +79,36 @@ export class DBProject extends Project {
 		console.log("log: DBProject -> save -> project saved", project);
 		return project;
 	}
-	static load(name: string) {
-		return new Promise<DBProject>((resolve, reject) => {
-			ProjectModel.findOne({ name }, (err, projectDoc) => {
-				if (err) {
-					reject(err);
-				} else if (!projectDoc) {
-					resolve();
-				} else {
-					const dbProject = new DBProject(projectDoc);
-					resolve(dbProject);
-				}
-			});
-		});
+	static async delete(name: string) {
+		try {
+			const response = await ProjectModel.deleteOne({ name });
+			console.log("log: DBProject -> delete -> response", response);
+			return response;
+		} catch (error) {
+			console.log("log: DBProject -> delete -> error", error);
+		}
 	}
-	static getAllProjects() {
-		return new Promise<DBProject[]>((resolve, reject) => {
-			console.log("log: getAllProjects -> prev");
-			ProjectModel.find({}, function FUUUUUUUU(err, projectDocs) {
-				console.warn("log: getAllProjects -> err, projectDocs ", err, projectDocs);
-				if (err) {
-					console.log("log: getAllProjects -> err", err);
-					reject(err);
-				} else {
-					console.log("log: getAllProjects -> dbProjects 1");
-					const dbProjects = projectDocs.map(projectDoc => new DBProject(projectDoc));
-					console.log("log: getAllProjects -> dbProjects 2", dbProjects);
-					resolve(dbProjects);
-				}
-			})
-		});
+	static async load(name: string) {
+		try {
+			const projectDoc = await ProjectModel.findOne({ name });
+			console.log("log: DBProject -> load -> projectDoc", projectDoc);
+			const dbProject = new DBProject(projectDoc);
+			return dbProject;
+		} catch (error) {
+			console.log("log: DBProject -> load -> error", error);
+			return error;
+		}
+	}
+	static async getAllProjects() {
+		try {
+			const response = await ProjectModel.find({});
+			console.log("log: getAllProjects -> response", response);
+			const dbProjects = response.map(projectDoc => new DBProject(projectDoc));
+			return dbProjects;
+		} catch (error) {
+			console.log("log: getAllProjects -> error", error);
+			return error;
+		}
 	}
 }
 

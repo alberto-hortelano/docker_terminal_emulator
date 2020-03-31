@@ -5,18 +5,27 @@
 		justify-content: center;
 		align-items: center;
 		position: fixed;
-		background-color: rgba(0, 0, 0, 0.8);
+		background-color: rgba(200, 200, 200, 0.9);
 		top: 0;
 		bottom: 0;
 		right: 0;
 		left: 0;
 		z-index: 99;
-		.modal-content {
-			position: relative;
-			background: #111;
-			padding: 10px 20px;
-			border: 4px solid #000;
-			box-sizing: border-box;
+		.modal-container {
+			max-height: 100%;
+			overflow: auto;
+			width: 100%;
+			padding: 10px;
+			.modal-content {
+				position: relative;
+				background: #eee;
+				width: fit-content;
+				margin: 0 auto;
+				padding: 10px 20px;
+				border: 4px solid #eee;
+				box-sizing: border-box;
+				box-shadow: 4px 4px 5px -2px black;
+			}
 		}
 		.modal-close {
 			display: block;

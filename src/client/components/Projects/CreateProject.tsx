@@ -7,6 +7,7 @@ import { ProjectForm } from './ProjectForm';
 const { useState } = React;
 
 const createProject = async (project: SerializableProject, setResponse: React.Dispatch<React.SetStateAction<string>>) => {
+	console.log("log: createProject -> project", project);
 	let message: string;
 	try {
 		const res = await fetch(paths.projects, {
@@ -35,14 +36,14 @@ const createProject = async (project: SerializableProject, setResponse: React.Di
 }
 
 export const CreateProject = () => {
-	const [input, handleInputChange] = useInputChange<SerializableProject>();
+	const [project, handleInputChange, setProject] = useInputChange<SerializableProject>();
 	const [response, setResponse] = useState('');
 
 	return <div className={CreateProject.displayName.toLowerCase()}>
 		<ProjectForm
 			handleInputChange={handleInputChange}
 		/>
-		<button onClick={() => createProject(input, setResponse)}>Create</button>
+		<button onClick={() => createProject(project, setResponse)}>Create</button>
 		{
 			response && <p>{response}</p>
 		}

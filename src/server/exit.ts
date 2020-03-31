@@ -1,8 +1,9 @@
 
 import { spawn, IPty } from "node-pty";
 import { exec } from "child_process";
-import { getPtys } from "./wss";
+import { getPtys } from "./ptys";
 import { Logger } from "../common/Logger";
+import { server } from "..";
 
 const console = new Logger(__filename, true);
 
@@ -72,7 +73,7 @@ export const killChildProcesses = async (childId: number) => new Promise<KillRes
 
 const killPty = async (pty: IPty) => new Promise((resolve, reject) => {
 	pty.onExit(() => {
-		console.warn("log: killPty    -> pty", pty.pid);
+		console.warn("log: killPty -> pty", pty.pid);
 		resolve()
 	});
 	pty.kill();
@@ -80,7 +81,7 @@ const killPty = async (pty: IPty) => new Promise((resolve, reject) => {
 
 let cleanChildProcesses = async (event: string, exitStatus?: number | Error) => {
 	// ps -o pid,ppid,pgid,sid,stat,args
-	console.log("log: cleanChildProcesses -> event, exitStatus", event, exitStatus);
+	console.log("log: cleanChildProcesses -> event,    exitStatus", event, exitStatus);
 	// Ensure process is killed
 	setTimeout(() => {
 		process.kill(process.pid);
@@ -116,4 +117,3 @@ process.on('SIGUSR2', (signal) => { cleanChildProcesses(signal) });
 
 // catches uncaught exceptions
 process.on('uncaughtException', (error) => { cleanChildProcesses('uncaughtException', error) });
-

@@ -33,5 +33,10 @@ export const getProject = async (name: SerializableProject['name']): Promise<DBP
 	return project;
 };
 
+export const deleteProject = async (name: SerializableProject['name']) => {
+	const project = await DBProject.delete(name);
+	console.log("log: deleteProject -> project", project);
+};
+
 
 

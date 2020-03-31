@@ -6,7 +6,7 @@ import { ProjectForm } from './ProjectForm';
 
 const { useState } = React;
 
-const editProject = async (project: SerializableProject, setResponse: React.Dispatch<React.SetStateAction<string>>) => {
+const updateProject = async (project: SerializableProject, setResponse: React.Dispatch<React.SetStateAction<string>>) => {
 	let message: string;
 	try {
 		console.log("log: editProject -> project", project);
@@ -44,7 +44,7 @@ export const UpdateProject = ({ project }) => {
 			project={input}
 			handleInputChange={handleInputChange}
 		/>
-		<button onClick={() => editProject(input, setResponse)}>Update</button>
+		<button onClick={() => updateProject(input, setResponse)}>Update</button>
 		{
 			response && <p>{response}</p>
 		}

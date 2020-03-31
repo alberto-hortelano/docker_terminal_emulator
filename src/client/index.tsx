@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Projects } from './components/Projects/Projects';
 import { Logger } from '../common/Logger';
 import { Connection } from './components/Connection/Connection';
 
 const console = new Logger(__filename);
 
 const App = () => <div id="docker-terminal-emulator">
-	<Projects />
 	<Connection />
 </div>
 const componentPath = new URLSearchParams(window.location.search).get('component');

@@ -1,5 +1,5 @@
 
-type DataTypes = 'processData' | 'pid' | 'error' | 'connected';
+type DataTypes = 'processData' | 'pid' | 'error' | 'connected' | 'dockerEvent';
 
 // interface TypedData {
 // 	type: DataTypes,
@@ -18,4 +18,9 @@ interface KeyData {
 	key: string;
 	keyCode: number;
 	text: string;
+}
+
+interface DockerEvent {
+	action: string,
+	service: string
 }

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { CreateProject } from "./CreateProject";
 import { paths } from '../../../common/paths';
 import { SerializableProject } from '../../../common/entities/Project';
-import { Project } from './Project';
-import { Modal } from '../Modal/Modal';
+import { Project, AddPty } from './Project';
+import { Modal, useModalState } from '../Modal/Modal';
 
 const { useState, useEffect } = React;
 
@@ -19,20 +19,21 @@ const getProjects = async (cb?: (projects: SerializableProject[]) => void) => {
 	}
 }
 
-const printProjects = (projects: SerializableProject[]) => {
+const printProjects = (projects: SerializableProject[], addPty: AddPty) => {
 	console.log("log: printProjects -> projects", projects);
 	if (projects.length) {
 		return <div className="projects-container">{
 			projects.map((project, i) => <Project
 				key={i}
 				project={project}
+				addPty={addPty}
 			></Project>)
 		}</div>
 	}
 }
 
-export const Projects = () => {
-	const [modalIsOpen, setModalIsOpen] = useState(false);
+export const Projects: React.FunctionComponent<{ addPty: AddPty }> = ({ addPty }) => {
+	const [modalIsOpen, setModalIsOpen] = useModalState(false);
 	const [projects, setProjects] = useState<SerializableProject[]>([]);
 
 	useEffect(() => {
@@ -42,7 +43,7 @@ export const Projects = () => {
 	return <div className={Projects.displayName.toLowerCase()}>
 		<button onClick={() => setModalIsOpen(true)}>New Project</button>
 		{
-			printProjects(projects)
+			printProjects(projects, addPty)
 		}
 		<Modal
 			isOpen={modalIsOpen}

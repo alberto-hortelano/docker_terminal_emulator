@@ -1,3 +1,5 @@
+import { Command } from "./Command";
+
 const _name = Symbol('name');
 const _path = Symbol('path');
 const _description = Symbol('description');
@@ -7,7 +9,7 @@ export interface SerializableProject { // Serializable properties.
 	name: string,
 	path: string,
 	description?: string,
-	commands?: string[],
+	commands?: Command[],
 }
 
 export const projectKeys: (keyof SerializableProject)[] = ["name", "path", "description", "commands"];

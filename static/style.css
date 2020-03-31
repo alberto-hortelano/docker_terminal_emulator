@@ -1,21 +1,35 @@
+/* Constants */
+/* Imports */
+#docker-terminal-emulator {
+  padding: 10px;
+}
 #docker-terminal-emulator .modal.open {
   display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(200, 200, 200, 0.9);
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   z-index: 99;
 }
-#docker-terminal-emulator .modal.open .modal-content {
+#docker-terminal-emulator .modal.open .modal-container {
+  max-height: 100%;
+  overflow: auto;
+  width: 100%;
+  padding: 10px;
+}
+#docker-terminal-emulator .modal.open .modal-container .modal-content {
   position: relative;
-  background: #111;
+  background: #eee;
+  width: fit-content;
+  margin: 0 auto;
   padding: 10px 20px;
-  border: 4px solid #000;
+  border: 4px solid #eee;
   box-sizing: border-box;
+  box-shadow: 4px 4px 5px -2px black;
 }
 #docker-terminal-emulator .modal.open .modal-close {
   display: block;
@@ -32,14 +46,14 @@
 #docker-terminal-emulator .modal .modal-close {
   display: none;
 }
-#docker-terminal-emulator .connection {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
 #docker-terminal-emulator .connection .buttons {
   flex-basis: 100%;
   margin-bottom: 30px;
+}
+#docker-terminal-emulator .connection .terminals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 #docker-terminal-emulator .projects .projects-container {
   display: flex;
@@ -52,11 +66,27 @@
   flex: auto;
 }
 #docker-terminal-emulator .projects .project {
-  padding: 0 20px;
+  padding: 10px;
   min-width: 10%;
-  border: 4px solid #333;
-  margin: 5px 10px;
+  border: 4px solid #4a67b9;
+  margin-right: 10px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column;
+}
+#docker-terminal-emulator .projects .project .project-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+#docker-terminal-emulator .projects .project .project-buttons button {
+  margin-right: 5px;
+}
+#docker-terminal-emulator .projects .project h3 {
+  margin: 8px 0;
+}
+#docker-terminal-emulator .projects .project p {
+  margin: 5px 0;
 }
 #docker-terminal-emulator .project-form {
   display: flex;
@@ -69,22 +99,40 @@
   content: "";
   flex: auto;
 }
-#docker-terminal-emulator .project-form label input, #docker-terminal-emulator .project-form label textarea {
+#docker-terminal-emulator .project-form label input, #docker-terminal-emulator .project-form label textarea, #docker-terminal-emulator .project-form label select {
   width: 100%;
   margin: 10px 0;
   box-sizing: border-box;
   border: none;
-  background: #222;
   padding: 5px;
 }
-#docker-terminal-emulator .project-form label input::focus, #docker-terminal-emulator .project-form label textarea::focus {
-  background: #333;
+#docker-terminal-emulator .project-form label input, #docker-terminal-emulator .project-form label select {
+  height: 30px;
+}
+#docker-terminal-emulator .project-form label select[multiple] {
+  height: auto;
+  min-height: 30px;
+}
+#docker-terminal-emulator .project-form .command-form {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-shadow: 0px 0px 1px 0px white;
+  margin: 10px 0;
+}
+#docker-terminal-emulator .project-form .command-form label {
+  padding: 10px;
+  width: 25%;
+  box-sizing: border-box;
+}
+#docker-terminal-emulator .project-form .command-form label:last-child {
+  width: 100%;
 }
 #docker-terminal-emulator .term {
   padding: 1px;
   box-sizing: border-box;
   background: red;
-  color: black;
+  color: white;
   margin-bottom: 30px;
 }
 #docker-terminal-emulator .term.fake {
@@ -93,23 +141,57 @@
   visibility: hidden;
 }
 #docker-terminal-emulator .term.connected {
-  background: gray;
+  background: #4a67b9;
 }
 #docker-terminal-emulator .term .term-buttons {
   padding-left: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#docker-terminal-emulator .term .term-buttons > * {
+  line-height: 24px;
+}
+#docker-terminal-emulator .term .term-buttons .pid {
+  align-self: flex-start;
+  padding-right: 5px;
+  border-right: 1px solid white;
+  margin: 1px 5px;
+}
+#docker-terminal-emulator .term .term-buttons .initial-command {
+  font-weight: bold;
+  margin: 1px 5px;
 }
 #docker-terminal-emulator .term .term-buttons button {
-  float: right;
+  align-self: flex-end;
   background: transparent;
-  border: none;
+  border: 1px solid;
+  padding: 0;
+  width: 24px;
+  font-size: 18px;
+  margin: 1px;
+  box-sizing: content-box;
+  text-align: center;
 }
 #docker-terminal-emulator .term .xterm .xterm-selection div {
   background-color: rgba(10, 30, 170, 0.3);
 }
 
+/* General styles */
+body {
+  margin: 0px;
+  background-color: white;
+  font-family: sans-serif;
+}
+body.modal-open {
+  overflow: hidden;
+}
+
 button {
-  background-color: gray;
+  background-color: #4a67b9;
   color: white;
+  border: none;
+  padding: 8px;
 }
 
 /* Scrollbar */

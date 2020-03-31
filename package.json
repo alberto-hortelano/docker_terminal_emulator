@@ -8,7 +8,7 @@
 		"dev": "PORT=27780 MONGOPORT=27717 MONGOURL=localhost node --inspect=0.0.0.0:27729 dist/index.js",
 		"build:ts": "tsc --build --clean && tsc -w",
 		"build:wp": "webpack --config webpack.config.js",
-		"nodemon": "PORT=27780 MONGOPORT=27717 MONGOURL=localhost nodemon --inspect=0.0.0.0:27729 dist/index.js",
+		"nodemon": "PORT=27780 MONGOPORT=27717 MONGOURL=localhost nodemon dist/index.js",
 		"build:sass": "sass --watch src/client/index.scss static/style.css",
 		"test": "jest",
 		"test:debug": "node --inspect=0.0.0.0:9230 node_modules/.bin/jest --runInBand --watch",

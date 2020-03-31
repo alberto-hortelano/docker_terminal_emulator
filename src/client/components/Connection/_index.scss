@@ -1,9 +1,11 @@
 .connection {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
 	.buttons {
 		flex-basis: 100%;
 		margin-bottom: 30px;
+	}
+	.terminals {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
 	}
 }

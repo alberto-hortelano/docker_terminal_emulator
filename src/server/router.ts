@@ -1,9 +1,9 @@
 import { Router, json, Response } from 'express';
-import { getPtys, getPty } from './wss';
+import { getPtys, getPty } from './ptys';
 import { killChildProcesses } from './exit';
 import { Logger } from "../common/Logger";
 import { paths } from "../common/paths";
-import { createProject, getProject, getProjects, editProject } from './API/project';
+import { createProject, getProject, getProjects, editProject, deleteProject } from './API/project';
 
 const console = new Logger(__filename, true);
 
@@ -20,11 +20,7 @@ router.use(json());
 router.get(paths.ptys, (req, res) => {
 	const ptys = Object.keys(getPtys());
 	console.warn("log: ptys", ptys);
-	if (ptys.length) {
-		res.status(200).send(ptys);
-	} else {
-		res.status(404).send();
-	}
+	res.status(200).send(ptys);
 });
 
 router.delete(`${paths.ptys}/:id`, async (req, res) => {
@@ -88,6 +84,15 @@ router.get(`${paths.projects}/:name`, async (req, res) => {
 		} else {
 			res.status(200).send(project.serializableProject);
 		}
+	} catch (error) {
+		handleError(res, error);
+	}
+});
+router.delete(`${paths.projects}/:name`, async (req, res) => {
+	try {
+		const project = await deleteProject(req.params.name);
+		console.log("log: project", project);
+		res.status(200).send();
 	} catch (error) {
 		handleError(res, error);
 	}
