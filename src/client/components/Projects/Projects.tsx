@@ -19,13 +19,14 @@ const getProjects = async (cb?: (projects: SerializableProject[]) => void) => {
 	}
 }
 
-const printProjects = (projects: SerializableProject[], addPty: AddPty) => {
+const printProjects = (projects: SerializableProject[], addPty: AddPty, onUpdate: () => void) => {
 	console.log("log: printProjects -> projects", projects);
 	if (projects.length) {
 		return <div className="projects-container">{
 			projects.map((project, i) => <Project
 				key={i}
 				project={project}
+				onUpdate={onUpdate}
 				addPty={addPty}
 			></Project>)
 		}</div>
@@ -43,7 +44,9 @@ export const Projects: React.FunctionComponent<{ addPty: AddPty }> = ({ addPty }
 	return <div className={Projects.displayName.toLowerCase()}>
 		<button onClick={() => setModalIsOpen(true)}>New Project</button>
 		{
-			printProjects(projects, addPty)
+			printProjects(projects, addPty, () => {
+				getProjects(setProjects);
+			})
 		}
 		<Modal
 			isOpen={modalIsOpen}

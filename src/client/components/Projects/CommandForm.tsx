@@ -4,13 +4,13 @@ import { dockerActions, Command } from '../../../common/entities/Command';
 import { SerializableProject } from '../../../common/entities/Project';
 
 interface CommandProps {
-	command?: Command;
+	index?: number;
 	commands?: SerializableProject['commands'];
 	handleInputChange: (event: InputEvent) => void;
-	index?: number;
+	setProject?: React.Dispatch<React.SetStateAction<SerializableProject>>;
 }
 
-const calcDepsSelectSize = (commands: Command[]) => {
+const calcDepsSelectSize = (commands: SerializableProject['commands']) => {
 	if (commands) {
 		return commands.length > 4 ? 5 : commands.length + 1;
 	} else {
@@ -18,7 +18,7 @@ const calcDepsSelectSize = (commands: Command[]) => {
 	}
 }
 
-const calcDepsOverflowStyle = (commands: Command[]) => {
+const calcDepsOverflowStyle = (commands: SerializableProject['commands']) => {
 	if (commands && commands.length < 5) {
 		return { overflow: 'visible' };
 	} else {
@@ -26,29 +26,39 @@ const calcDepsOverflowStyle = (commands: Command[]) => {
 	}
 }
 
-export const CommandForm: React.FunctionComponent<CommandProps> = ({ command, commands, handleInputChange, index = 0 }) => {
+export const CommandForm: React.FunctionComponent<CommandProps> = ({ commands, handleInputChange, setProject, index = 0 }) => {
+	const command = commands ? new Command(commands[index]) : null;
+	console.log("log: command?.active", command?.active);
 
 	return <div className="command-form">
-		<label>Name
-		<input
+		<label className="active">Active
+			<input
+				checked={command?.active}
+				name={`commands.${index}.active`}
+				onChange={handleInputChange}
+				type="checkbox"
+			/>
+		</label>
+		<label className="name">Name
+			<input
 				value={command?.name}
 				name={`commands.${index}.name`}
 				onChange={handleInputChange}
 				type="text"
 			/>
 		</label>
-		<label>Docker service
+		<label className="service">Docker service
 			<input
-				value={command?.dockerEvent.service}
+				value={command?.dockerEvent?.service}
 				name={`commands.${index}.dockerEvent.service`}
 				onChange={handleInputChange}
 				type="text"
 			/>
 		</label>
-		<label>Docker action
+		<label className="action">Docker action
 			<select
 				name={`commands.${index}.dockerEvent.action`}
-				value={command?.dockerEvent.action}
+				value={command?.dockerEvent?.action}
 				onChange={handleInputChange}
 			>
 				<option value="">none</option>
@@ -57,7 +67,7 @@ export const CommandForm: React.FunctionComponent<CommandProps> = ({ command, co
 				}
 			</select>
 		</label>
-		<label>Dependencies
+		<label className="dependencies">Dependencies
 			<select
 				multiple
 				value={command?.dependencies}
@@ -77,14 +87,14 @@ export const CommandForm: React.FunctionComponent<CommandProps> = ({ command, co
 			>
 				<option value="">none</option>
 				{
-					commands?.filter(({ name }) => name !== command.name).map(({ name }, k) => <option
+					commands?.filter(({ name }) => name !== command?.name).map(({ name }, k) => <option
 						key={k}
 						value={name}
 					>{name}</option>)
 				}
 			</select>
 		</label>
-		<label>Text
+		<label className="text">Text
 			<textarea
 				value={command?.text}
 				name={`commands.${index}.text`}
@@ -93,6 +103,18 @@ export const CommandForm: React.FunctionComponent<CommandProps> = ({ command, co
 				rows={3}
 			/>
 		</label>
+		<p className="buttons">
+			<button className="delete-command" onClick={() => {
+				console.log("log: commands", commands, commands[index]);
+				setProject(project => ({
+					...project,
+					commands: [
+						...commands.filter((command, i) => i !== index)
+					]
+				}));
+				console.log("log: commands deleted", commands);
+			}}>Delete</button>
+		</p>
 	</div>
 }
 

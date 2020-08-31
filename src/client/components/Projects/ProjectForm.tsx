@@ -2,14 +2,15 @@ import * as React from 'react';
 import { InputEvent } from '../../lib/UseInputChange';
 import { SerializableProject } from '../../../common/entities/Project';
 import { CommandForm } from './CommandForm';
+import { Command } from '../../../common/entities/Command';
 
 export interface ProjectFormProps {
 	project?: SerializableProject;
+	setProject?: React.Dispatch<React.SetStateAction<SerializableProject>>;
 	handleInputChange: (event: InputEvent) => void;
-	// addCommand: (command: Command) => void;
 }
 
-export const ProjectForm: React.FunctionComponent<ProjectFormProps> = ({ project, handleInputChange }) => {
+export const ProjectForm: React.FunctionComponent<ProjectFormProps> = ({ project, setProject, handleInputChange }) => {
 
 	return <div className={ProjectForm.displayName.toLowerCase()}>
 		<b>{project ? 'Edit Project' : 'New Project Creator'}:</b>
@@ -24,9 +25,37 @@ export const ProjectForm: React.FunctionComponent<ProjectFormProps> = ({ project
 		</label>
 		<div>Commands
 			{
-				project?.commands.map((command, k) => <CommandForm key={k} index={k} command={command} commands={project?.commands} handleInputChange={handleInputChange} />)
+				project?.commands.map((command: Command, k) => <CommandForm
+					key={k}
+					index={k}
+					setProject={setProject}
+					commands={project?.commands}
+					handleInputChange={handleInputChange}
+				/>)
 			}
-			<CommandForm handleInputChange={handleInputChange} />
+			{
+				project?.commands.length > 0 ?
+					<button onClick={() => {
+						setProject(oldProject => {
+							const newProject = {
+								...oldProject,
+								commands: [
+									...oldProject.commands,
+									{
+										name: '',
+										text: ''
+									}
+								]
+							}
+							console.log("log: oldProject", oldProject);
+							console.log("log: newProject", newProject);
+							return newProject;
+						});
+						console.log("log: commands", project?.commands, project);
+					}}>+</button> :
+					<CommandForm index={project?.commands.length} commands={project?.commands} handleInputChange={handleInputChange} />
+			}
+
 		</div>
 	</div>
 }

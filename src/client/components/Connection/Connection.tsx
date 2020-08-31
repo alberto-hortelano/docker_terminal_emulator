@@ -15,7 +15,7 @@ const getPtyIds = async (cb: (value: Pty[]) => void) => {
 		const res = await fetch(paths.ptys);
 		console.log("log: getPtyIds -> res", res);
 		const ptyIds: string[] = await res.json();
-		const ptys = ptyIds.map(ptyId => new Pty(ptyId));
+		const ptys = ptyIds.map(ptyId => new Pty({ pid: ptyId }));
 		console.log("log: getPtyIds -> ptys", ptys);
 		cb(ptys);
 	} catch (error) {
@@ -49,7 +49,7 @@ export const Connection: React.FunctionComponent = () => {
 		<div className="terminals">
 			{
 				console.log("log: Connection:React.FunctionComponent -> ptys", ptys) ||
-				ptys.map((pty, i) => {
+				ptys.map((pty: Pty, i) => {
 					console.log('Xterm', i, pty)
 					console.log("log: Connection:React.FunctionComponent -> ptys 3", ptys);
 					return <Term

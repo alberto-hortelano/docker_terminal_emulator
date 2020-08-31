@@ -6,7 +6,7 @@ import { ProjectForm } from './ProjectForm';
 
 const { useState } = React;
 
-const updateProject = async (project: SerializableProject, setResponse: React.Dispatch<React.SetStateAction<string>>) => {
+const updateProject = async (project: SerializableProject, setResponse: React.Dispatch<React.SetStateAction<string>>, onUpdate) => {
 	let message: string;
 	try {
 		console.log("log: editProject -> project", project);
@@ -22,6 +22,7 @@ const updateProject = async (project: SerializableProject, setResponse: React.Di
 			message = `No need to update project "${project.name}"`;
 		} else if (res.status === 200) {
 			message = `Project "${project.name}" updated`;
+			onUpdate();
 		} else if (res.status === 400) {
 			message = `Project "${project.name}" don't exists`;
 		} else {
@@ -35,16 +36,17 @@ const updateProject = async (project: SerializableProject, setResponse: React.Di
 	setResponse(message);
 }
 
-export const UpdateProject = ({ project }) => {
-	const [input, handleInputChange] = useInputChange<SerializableProject>(project);
+export const UpdateProject = ({ project, onUpdate }) => {
+	const [input, handleInputChange, setProject] = useInputChange<SerializableProject>(project);
 	const [response, setResponse] = useState('');
 
 	return <div className={UpdateProject.displayName.toLowerCase()}>
 		<ProjectForm
 			project={input}
 			handleInputChange={handleInputChange}
+			setProject={setProject}
 		/>
-		<button onClick={() => updateProject(input, setResponse)}>Update</button>
+		<button onClick={() => updateProject(input, setResponse, onUpdate)}>Update</button>
 		{
 			response && <p>{response}</p>
 		}

@@ -51,10 +51,10 @@ export class WSConnection extends EventEmitter implements Connection {
 			console.error("log: createConnection -> new WebSocket error", this.wsUrl, error);
 			return;
 		}
-		this.ws.addEventListener('close', event => {
-			console.warn("log: Connection -> createConnection -> close", event);
-			this.createConnection(lastAttempt);
-		});
+		// this.ws.addEventListener('close', event => {
+		// 	console.warn("log: Connection -> createConnection -> close", event);
+		// 	this.createConnection(lastAttempt);
+		// });
 		this.ws.addEventListener('error', event => {
 			console.warn("log: Connection -> createConnection -> error", event);
 			this.createConnection(lastAttempt);

@@ -49,7 +49,6 @@ const initXterm = (
 		xterm.write(data);
 	});
 	connection.on('pid', (pid) => {
-		xterm.clear();
 		setPid(pid);
 	});
 	connection.on('connected', (connected) => {
@@ -97,8 +96,10 @@ export const Term: React.FunctionComponent<Props> = ({ initialPid = '', remove, 
 
 	// Execute only once, when component is ready
 	useEffect(() => {
+		console.log("log: xId", xId);
 		console.log("log: connection", connection);
 		initXterm(connection, ref.current, pid, setPid, setConnected, command);
+		console.log("log: command", command);
 	}, []);
 	useEffect(() => {
 		setPid(() => initialPid);
@@ -108,7 +109,7 @@ export const Term: React.FunctionComponent<Props> = ({ initialPid = '', remove, 
 	return <div className={Term.displayName.toLowerCase() + (connected ? " connected" : "")}>
 		<div className="term-buttons">
 			<span className="pid">PID: {pid}</span>
-			{command ? <span className="initial-command">{command.text}</span> : ''}
+			<span className="initial-command">{command?.name}</span>
 			<button onClick={() => close(pid, connection, () => remove(xId))}>X</button>
 		</div>
 		<div ref={ref}></div>

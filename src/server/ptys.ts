@@ -13,8 +13,7 @@ const ptys: { [pid: number]: IPty } = {};
 const initPty = (ws: WS) => {
 	const ptyProcess = spawn('sh', [], {
 		name: 'xterm-256color',
-		useConpty: true,
-		cwd: './',
+		cwd: '../../projects',
 		env: process.env,
 		...terminalConfig
 	});

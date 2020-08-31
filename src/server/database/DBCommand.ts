@@ -17,6 +17,10 @@ export const commandSchemaBase: SerializableProjectKeys = {
 		type: String,
 		required: true,
 	},
+	active: {
+		type: Boolean,
+		required: true,
+	},
 	dockerEvent: {
 		service: String,
 		action: {
